@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ethanol|2020-2023</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Audio element with muted autoplay -->
+    <audio id="timeAudio" controls muted autoplay loop>
+        <source src="2023.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <div id="audioInfo">
+        <p>ethanol demos 2020-2023</p>
+        <p id="positionInfo"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('timeAudio');
+            const positionInfo = document.getElementById('positionInfo');
+            
+            // First, we need to know the duration of the audio
+            audio.addEventListener('loadedmetadata', function() {
+                const audioDuration = audio.duration; // in seconds
+                
+                // Get current time since midnight in seconds
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+                const milliseconds = now.getMilliseconds();
+                
+                const timeSinceMidnight = (hours * 3600) + (minutes * 60) + seconds + (milliseconds / 1000);
+                
+                // Calculate starting position using modulus
+                const startPosition = timeSinceMidnight % audioDuration;
+                
+                // Set the audio to start at this position
+                audio.currentTime = startPosition;
+                
+                // Attempt to play (muted autoplay should work)
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => {
+                        console.log("Autoplay prevented:", e);
+                        positionInfo.textContent += " | Autoplay blocked - please unmute and click play";
+                    });
+                }
+            });
+            
+            // Automatically unmute when user interacts with audio controls
+            audio.addEventListener('volumechange', function() {
+                if (audio.volume > 0) {
+                    audio.muted = false;
+                }
+            });
+            
+            // Handle cases where audio fails to load
+            audio.addEventListener('error', function() {
+                positionInfo.textContent = "Error loading audio file. Please check the file path.";
+            });
+        });
+    </script>
+</body>
+</html>
