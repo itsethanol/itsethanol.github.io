@@ -10,18 +10,27 @@
             padding: 20px;
             text-align: center;
         }
+        .center{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
     </style>
 </head>
 <body>
+
+    <img src="sky.jpeg" class="center"> 
+
+    <br>
     
     <!-- Audio element with muted autoplay -->
-    <audio id="timeAudio" controls muted autoplay loop>
+    <audio id="timeAudio" controls autoplay loop>
         <source src="2023.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
     <div id="audioInfo">
-        <p>ethanol demos 2020-2023</p>
         <p id="positionInfo"></p>
     </div>
 
