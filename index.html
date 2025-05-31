@@ -10,11 +10,25 @@
             padding: 20px;
             text-align: center;
         }
-        .center{
+        .center {
             display: block;
             margin-left: auto;
             margin-right: auto;
             width: 75%;
+        }
+        #unmuteBtn {
+            padding: 8px 16px;
+            background-color: #000;
+            color: white;
+            border: 1px solid #000;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: "Courier New";
+            margin-top: 10px;
+            display: none; /* Hidden by default */
+        }
+        #unmuteBtn:hover {
+            background-color: #333;
         }
     </style>
 </head>
@@ -27,8 +41,15 @@
     <!-- Audio element with muted autoplay -->
     <audio id="timeAudio" controls muted autoplay loop>
         <source src="2023.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+        your browser does not support the audio element.
     </audio>
+
+    <br>
+    
+    <!-- Custom unmute button -->
+    <button id="unmuteBtn">unmute audio</button>
+
+    <br>
     
     <div id="audioInfo">
         <p id="positionInfo"></p>
@@ -38,6 +59,20 @@
         document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('timeAudio');
             const positionInfo = document.getElementById('positionInfo');
+            const unmuteBtn = document.getElementById('unmuteBtn');
+            
+            // Show unmute button if audio is muted
+            if (audio.muted) {
+                unmuteBtn.style.display = 'inline-block';
+            }
+            
+            // Handle unmute button click
+            unmuteBtn.addEventListener('click', function() {
+                audio.muted = false;
+                this.style.display = 'none';
+                // Try to play in case autoplay was blocked
+                audio.play().catch(e => console.log("Play failed:", e));
+            });
             
             // First, we need to know the duration of the audio
             audio.addEventListener('loadedmetadata', function() {
@@ -64,21 +99,24 @@
                 if (playPromise !== undefined) {
                     playPromise.catch(e => {
                         console.log("Autoplay prevented:", e);
-                        positionInfo.textContent += "\nAutoplay blocked - please unmute and click play";
+                        positionInfo.textContent += "\nautoplay blocked :-( please click play";
+                        unmuteBtn.textContent = "play audio";
+                        unmuteBtn.style.display = 'inline-block';
                     });
                 }
             });
             
-            // Automatically unmute when user interacts with audio controls
+            // Automatically hide unmute button when user unmutes via native controls
             audio.addEventListener('volumechange', function() {
-                if (audio.volume > 0) {
-                    audio.muted = false;
+                if (!audio.muted) {
+                    unmuteBtn.style.display = 'none';
                 }
             });
             
             // Handle cases where audio fails to load
             audio.addEventListener('error', function() {
-                positionInfo.textContent = "Error loading audio file. Please check the file path.";
+                positionInfo.textContent = "error loading audio file :-( please check the file path.";
+                unmuteBtn.style.display = 'none';
             });
         });
     </script>
