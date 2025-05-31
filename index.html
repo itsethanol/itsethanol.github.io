@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ethanol|2020-2023</title>
+    <title>Ethanol | 2020-2023</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Courier New";
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
@@ -64,7 +64,7 @@
                 if (playPromise !== undefined) {
                     playPromise.catch(e => {
                         console.log("Autoplay prevented:", e);
-                        positionInfo.textContent += " | Autoplay blocked - please unmute and click play";
+                        positionInfo.textContent += "\nAutoplay blocked - please unmute and click play";
                     });
                 }
             });
