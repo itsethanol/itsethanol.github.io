@@ -4,18 +4,28 @@
     <title>Ethanol | 2020-2023</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        html, body {
+            height: 100%;
+        }
+        html {
+            display: table;
+            margin: auto;
+        }
         body {
+            display: table-cell;
+            vertical-align: middle;
             font-family: "Courier New";
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 100%
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
             text-align: center;
         }
         .center {
             display: block;
             margin-left: auto;
             margin-right: auto;
-            width: 75%;
+            width: 80vw;
         }
         #unmuteBtn {
             padding: 8px 16px;
@@ -45,24 +55,17 @@
         <source src="https://dl.dropboxusercontent.com/scl/fi/hhj8xmjg80z80c6qteoet/2023.mp3?rlkey=2eyp6e17k5pginnn1u08i5nt0&st=thlhb53u" type="audio/mpeg">
         your browser does not support the audio element.
     </audio>
-
-    <br>
     
     <!-- Custom unmute button -->
     <button id="unmuteBtn">unmute audio</button>
 
     <br>
     
-    <div id="audioInfo">
+    <div id="audioInfo" class="center">
         <p id="positionInfo"></p>
     </div>
 
     <script>
-        var siteWidth = 1280;
-        var scale = screen.width /siteWidth;
-
-        document.querySelector('meta[name="viewport"]').setAttribute('content', 'width='+siteWidth+', initial-scale='+scale+'');
-        
         document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('timeAudio');
             const positionInfo = document.getElementById('positionInfo');
