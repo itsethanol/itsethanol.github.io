@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Ethanol | 2020-2023</title>
-    <meta name="viewport" content="width=1280, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
             font-family: "Courier New";
@@ -25,6 +25,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-family: "Courier New";
+            font-size: clamp(1rem, 4vw, 1.5rem);
             margin-top: 10px;
             display: none; /* Hidden by default */
         }
@@ -48,7 +49,7 @@
     <br>
     
     <!-- Custom unmute button -->
-    <button id="unmuteBtn" class="center">unmute audio</button>
+    <button id="unmuteBtn">unmute audio</button>
 
     <br>
     
