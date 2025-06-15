@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>r.i.p. brian wilson</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        html {
+            display: table;
+            margin: auto;
+            width: 100%;
+        }
+        body {
+            display: table-cell;
+            vertical-align: middle;
+            font-family: "Courier New";
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            text-align: center;
+            background-color: black;
+        }
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 600px;
+        }
+        #unmuteBtn {
+            padding: 8px 16px;
+            background-color: #000;
+            color: white;
+            border: 1px solid #000;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: "Courier New";
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            margin-top: 10px;
+            display: none; /* Hidden by default */
+        }
+        #unmuteBtn:hover {
+            background-color: #333;
+        }
+        #record {
+        	width: 50px;
+        	display: none;
+        }
+        #bottom {
+        	position: fixed;
+        	bottom: 0px;
+        	width: 100%;
+		    line-height: 2;
+		    text-align: center;
+		    font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="candle.gif" class="center"> 
+
+    <br>
+    
+    <!-- Audio element with muted autoplay -->
+    <audio id="timeAudio" muted loop>
+        <source src="backofmymindloop.mp3" type="audio/mpeg">
+        your browser does not support the audio element.
+    </audio>
+
+    <!-- Custom unmute button -->
+    <button id="unmuteBtn">play audio</button>
+
+    <br>
+
+    <img src="record.gif" id="record">
+    
+    <div id="audioInfo" class="center">
+        <p id="positionInfo"></p>
+    </div>
+
+    <div id="bottom"><a href="index.html">ethanol: 2020-2023</a></div>
+
+    <script>
+        /*let img = document.createElement("img");
+        img.src = "record.gif";*/
+        img = document.getElementById('record');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('timeAudio');
+            const unmuteBtn = document.getElementById('unmuteBtn');
+            
+            // Show unmute button if audio is muted
+            if (audio.muted) {
+                unmuteBtn.style.display = 'inline-block';
+            }
+            
+            // Handle unmute button click
+            unmuteBtn.addEventListener('click', function() {
+                audio.muted = false;
+                this.style.display = 'none';
+                // Try to play in case autoplay was blocked
+                audio.play().catch(e => console.log("Play failed:", e));
+            });
+            
+            // First, we need to know the duration of the audio
+            audio.addEventListener('loadedmetadata', function() {
+                /*const audioDuration = audio.duration; // in seconds
+                
+                // Get current time since midnight in seconds
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+                const milliseconds = now.getMilliseconds();
+                
+                const timeSinceMidnight = (hours * 3600) + (minutes * 60) + seconds + (milliseconds / 1000);
+                
+                // Calculate starting position using modulus
+                const startPosition = timeSinceMidnight % audioDuration;
+                
+                // Set the audio to start at this position
+                audio.currentTime = startPosition;*/
+                
+                // Attempt to play (muted autoplay should work)
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => {
+                        console.log("Autoplay prevented:", e);
+                        positionInfo.textContent += "\nautoplay blocked :-( please click play";
+                        unmuteBtn.textContent = "play audio";
+                        unmuteBtn.style.display = 'inline-block';
+                    });
+                }
+            });
+            
+            // Automatically hide unmute button when user unmutes via native controls
+            audio.addEventListener('volumechange', function() {
+                if (!audio.muted) {
+                    unmuteBtn.style.display = 'none';
+                    positionInfo.textContent = "";
+                    //positionInfo.appendChild(img);
+                    record.style.display = 'inline-block';
+
+                }
+            });
+            
+            // Handle cases where audio fails to load
+            audio.addEventListener('error', function() {
+                positionInfo.textContent = "error loading audio file :-( please check the file path.";
+                unmuteBtn.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
