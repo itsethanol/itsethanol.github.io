@@ -7,6 +7,7 @@
         body {
             font-family: "Courier New";
             background-color: #ebebeb;
+			overflow-x: hidden;
         }
         .brochure {
           display: flex;
@@ -22,7 +23,7 @@
         .page img {
           width: 100%;
           height: auto;
-          border-radius: 10px;
+          border-radius: 0px;
         }
 
         /* Optional: add a bi-fold effect on larger screens */
@@ -46,6 +47,12 @@
           .page {
             width: 100%;
             margin: 0px auto;
+          }
+          .page img {
+            width: 110%;
+            height: auto;
+            margin-left: -5%;
+            margin-right: -5%;
           }
         }
         #bottom {
