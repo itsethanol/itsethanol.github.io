@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>demos2026</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,34 +57,39 @@
 </head>
 <body>
 
-	<!--<img src="anethol.jpg" width="300px"></img>-->
-    
-    <audio controls style="width: 75%;">
-       <!--<source src="tapedemos.mp3" type="audio/mpeg">-->
+    <img src="beatles2.gif" width="250px" style="max-width: 30%;"></img> <br>
+
+    <audio id="soundtrack" controls style="width: 75%;">
+        <!-- The sound itself -->
         <source src="https://dl.dropboxusercontent.com/scl/fi/pd1azo74kc9z3s72cm4x6/demos2026.mp3?rlkey=habm8y6s7c0xbw7vivxxk5c9t&st=996ojdtd&dl=0" type="audio/mpeg">
-        your browser does not support the audio element.
+        Your browser does not support the audio element.
     </audio>
 
+    <!-- 
+        CRITICAL CHANGE: Added an ID and used the initial GIF frame.
+        We will use JavaScript to change its 'src' attribute when the audio plays.
+    -->
+    <img id="pianoGif" src="piano.png" alt="Piano playing" style="width: 75%;">
+
     <br>
-    
+
+    <!-- The centered paragraph tag remains correct -->
     <p style="max-width: 75%; margin: 30px auto; text-align: center;">
-    1. look at him
-    2. that life is gone
-    3. beware of darkness
-    4. flight over laptev
-    5. till the morning comes
-    6. you're still my only
-    7. spirit give me a chance
-    8. sexy sadie
-    9. antediluvian times / untitled
-    10. something
-    11. found camera
+        1. look at him
+        2. that life is gone
+        3. beware of darkness
+        4. flight over laptev
+        5. till the morning comes
+        6. you're still my only
+        7. spirit give me a chance
+        8. sexy sadie
+        9. antediluvian times / untitled
+        10. something
+        11. found camera
     </p>
 
-    <img src="beatles2.gif" width="250px"></img>
-    
     <div id="bottom">
-		<a href="https://campsite.bio/ethanol" class="link">listen to 'ordinary time'</a>
+        <a href="https://campsite.bio/ethanol" class="link">listen to 'ordinary time'</a>
 		/
 		<a href="otimes.html">interview</a>
         /
@@ -93,6 +98,32 @@
 		<a href="brian.html">for brian</a>
 		/
 		demos2026
-	</div>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- STEP 3: THE JAVASCRIPT GOES HERE, right before the closing body tag -->
+    <!-- =========================================================== -->
+    <script>
+        // 1. Get references to the elements using their IDs
+        const audio = document.getElementById('soundtrack');
+        const gifImg = document.getElementById('pianoGif');
+
+        // 2. Define the state change function
+        const playAudio = () => {
+            // When audio starts, switch to the animated GIF source
+            gifImg.src = 'piano.gif'; 
+        };
+
+        const pauseAudio = () => {
+            // When audio pauses, switch back to the still frame GIF source
+            gifImg.src = 'piano.png'; 
+        };
+
+        // 3. Attach listeners to the audio controls
+        audio.addEventListener('play', playAudio);
+        audio.addEventListener('pause', pauseAudio);
+        audio.addEventListener('ended', pauseAudio); // Ensure it stops when song is done
+
+    </script>
 </body>
 </html>
