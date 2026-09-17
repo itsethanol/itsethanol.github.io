@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ordinary time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #bottom {
+            font-family: "Courier New";
+        	position: fixed;
+        	bottom: 0px;
+        	width: 100%;
+		    line-height: 2;
+		    text-align: center;
+		    font-size: 10px;
+		    color: white;
+        }
+    </style>
+</head>
+<body style="background-color: #333333;">
+
+    <br>
+
+    <!-- Start Campsite embed code -->
+<iframe id="js-campsite-iframe" src="https://campsite.bio/ethanol?iframe=1" frameborder="0" scrolling="no" width="100%" height="500"></iframe>
+<script src="https://cdn.campsite.bio/js/iframe.js" async></script>
+<!-- End Campsite embed code -->
+    
+    <div id="bottom"><span style="background-color: #333333;">
+        listen to 'ordinary time'
+		/
+		<a href="otimes.html">interview</a>
+        /
+		<a href="index.html">2020-2023</a>
+		/
+		<a href="brian.html">for brian</a>
+		/
+		<a href="demos.html">demos2026</a></span>
+    </div>
+
+    <!-- =========================================================== -->
+    <!-- STEP 3: THE JAVASCRIPT GOES HERE, right before the closing body tag -->
+    <!-- =========================================================== -->
+    <script>
+        // 1. Get references to the elements using their IDs
+        const audio = document.getElementById('soundtrack');
+        const gifImg = document.getElementById('pianoGif');
+
+        // 2. Define the state change function
+        const playAudio = () => {
+            // When audio starts, switch to the animated GIF source
+            gifImg.src = 'piano.gif'; 
+        };
+
+        const pauseAudio = () => {
+            // When audio pauses, switch back to the still frame GIF source
+            gifImg.src = 'piano.png'; 
+        };
+
+        // 3. Attach listeners to the audio controls
+        audio.addEventListener('play', playAudio);
+        audio.addEventListener('pause', pauseAudio);
+        audio.addEventListener('ended', pauseAudio); // Ensure it stops when song is done
+
+    </script>
+</body>
+</html>
